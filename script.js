@@ -19,10 +19,8 @@ function goToChapter(selectElement) {
   const page = selectElement.value;
   if (!page) return;
 
-  const currentPath = window.location.pathname;
-  const isInCapitoli = currentPath.includes('/capitoli/');
-  const base = isInCapitoli ? '' : 'capitoli/';
-  const fullPath = page.startsWith('capitolo') ? base + page : page;
+  const base = (page === 'index.html' || page === 'fine.html') ? '/PLTV/' : '/PLTV/capitoli/';
+  const fullPath = base + page;
 
   localStorage.setItem('lastPage', fullPath);
   window.location.href = fullPath;
@@ -31,9 +29,11 @@ function goToChapter(selectElement) {
 // 📌 Mémoriser la page actuelle (sauf index.html)
 window.addEventListener('beforeunload', () => {
   const fullPath = window.location.pathname;
-  const match = fullPath.match(/\/PLTV\/(capitoli\/capitolo\d+\.html)/);
+  const match = fullPath.match(/\/PLTV\/capitoli\/(capitolo\d+\.html|fine\.html)/);
   if (match) {
-    localStorage.setItem('lastPage', match[1]);
+    localStorage.setItem('lastPage', 'capitoli/' + match[1]);
+  } else if (fullPath.includes('/PLTV/index.html')) {
+    localStorage.setItem('lastPage', 'index.html');
   }
 });
 
@@ -170,6 +170,7 @@ window.addEventListener('DOMContentLoaded', () => {
   updateGlobalProgressBar();
 });
 
+// 🔠 Taille de police
 function setupFontSizeToggle() {
   const button = document.getElementById('toggle-font');
   const sizes = ['small', 'medium', 'large'];
