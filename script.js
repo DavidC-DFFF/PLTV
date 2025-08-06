@@ -20,9 +20,9 @@ function goToChapter(selectElement) {
   if (!page) return;
 
   const currentPath = window.location.pathname;
-  const isInChapitres = currentPath.includes('/chapitres/');
-  const base = isInChapitres ? '' : 'chapitres/';
-  const fullPath = base + page;
+  const isInCapitoli = currentPath.includes('/capitoli/');
+  const base = isInCapitoli ? '' : 'capitoli/';
+  const fullPath = page.startsWith('capitolo') ? base + page : page;
 
   localStorage.setItem('lastPage', fullPath);
   window.location.href = fullPath;
@@ -31,7 +31,7 @@ function goToChapter(selectElement) {
 // 📌 Mémoriser la page actuelle (sauf index.html)
 window.addEventListener('beforeunload', () => {
   const fullPath = window.location.pathname;
-  const match = fullPath.match(/\/PMTV\/(chapitres\/chapitre\d+\.html)/);
+  const match = fullPath.match(/\/PLTV\/(capitoli\/capitolo\d+\.html)/);
   if (match) {
     localStorage.setItem('lastPage', match[1]);
   }
@@ -51,7 +51,7 @@ function setupSommaireInterception() {
 function loadNavbar() {
   const navbarContainer = document.getElementById('navbar');
   if (navbarContainer) {
-    const base = window.location.pathname.includes('/chapitres/') ? '../' : './';
+    const base = window.location.pathname.includes('/capitoli/') ? '../' : './';
     fetch(base + 'navbar.html')
       .then(response => response.text())
       .then(html => {
@@ -91,66 +91,66 @@ function selectCurrentChapter() {
 function updateGlobalProgressBar() {
   const chapterOrder = [
     'index.html',
-    'chapitre01.html',
-    'chapitre02.html',
-    'chapitre03.html',
-    'chapitre04.html',
-    'chapitre05.html',
-    'chapitre06.html',
-    'chapitre07.html',
-    'chapitre08.html',
-    'chapitre09.html',
-    'chapitre10.html',
-    'chapitre11.html',
-    'chapitre12.html',
-    'chapitre13.html',
-    'chapitre14.html',
-    'chapitre15.html',
-    'chapitre16.html',
-    'chapitre17.html',
-    'chapitre18.html',
-    'chapitre19.html',
-    'chapitre20.html',
-    'chapitre21.html',
-    'chapitre22.html',
-    'chapitre23.html',
-    'chapitre24.html',
-    'chapitre25.html',
-    'chapitre26.html',
-    'chapitre27.html',
-    'chapitre28.html',
-    'chapitre29.html',
-    'chapitre30.html',
-    'chapitre31.html',
-    'chapitre32.html',
-    'chapitre33.html',
-    'chapitre34.html',
-    'chapitre35.html',
-    'chapitre36.html',
-    'chapitre37.html',
-    'chapitre38.html',
-    'chapitre39.html',
-    'chapitre40.html',
-    'chapitre41.html',
-    'chapitre42.html',
-    'chapitre43.html',
-    'chapitre44.html',
-    'chapitre45.html',
-    'chapitre46.html',
-    'chapitre47.html',
-    'chapitre48.html',
-    'chapitre49.html',
-    'chapitre50.html',
-    'chapitre51.html',
-    'chapitre52.html',
-    'chapitre53.html',
-    'chapitre54.html',
-    'chapitre55.html',
-    'chapitre56.html',
-    'chapitre57.html',
-    'chapitre58.html',
-    'chapitre59.html',
-    'fin.html'
+    'capitolo01.html',
+    'capitolo02.html',
+    'capitolo03.html',
+    'capitolo04.html',
+    'capitolo05.html',
+    'capitolo06.html',
+    'capitolo07.html',
+    'capitolo08.html',
+    'capitolo09.html',
+    'capitolo10.html',
+    'capitolo11.html',
+    'capitolo12.html',
+    'capitolo13.html',
+    'capitolo14.html',
+    'capitolo15.html',
+    'capitolo16.html',
+    'capitolo17.html',
+    'capitolo18.html',
+    'capitolo19.html',
+    'capitolo20.html',
+    'capitolo21.html',
+    'capitolo22.html',
+    'capitolo23.html',
+    'capitolo24.html',
+    'capitolo25.html',
+    'capitolo26.html',
+    'capitolo27.html',
+    'capitolo28.html',
+    'capitolo29.html',
+    'capitolo30.html',
+    'capitolo31.html',
+    'capitolo32.html',
+    'capitolo33.html',
+    'capitolo34.html',
+    'capitolo35.html',
+    'capitolo36.html',
+    'capitolo37.html',
+    'capitolo38.html',
+    'capitolo39.html',
+    'capitolo40.html',
+    'capitolo41.html',
+    'capitolo42.html',
+    'capitolo43.html',
+    'capitolo44.html',
+    'capitolo45.html',
+    'capitolo46.html',
+    'capitolo47.html',
+    'capitolo48.html',
+    'capitolo49.html',
+    'capitolo50.html',
+    'capitolo51.html',
+    'capitolo52.html',
+    'capitolo53.html',
+    'capitolo54.html',
+    'capitolo55.html',
+    'capitolo56.html',
+    'capitolo57.html',
+    'capitolo58.html',
+    'capitolo59.html',
+    'fine.html'
   ];
 
   const currentPath = window.location.pathname.split('/').pop();
@@ -174,7 +174,7 @@ function setupFontSizeToggle() {
   const button = document.getElementById('toggle-font');
   const sizes = ['small', 'medium', 'large'];
   let current = localStorage.getItem('fontSize') || 'medium';
-  
+
   const applySize = (size) => {
     document.documentElement.dataset.font = size;
     localStorage.setItem('fontSize', size);
