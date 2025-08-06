@@ -1,0 +1,31 @@
+{
+  "name": "Prête-moi ta voix",
+  "short_name": "PMTV",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#660000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "Images/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "Images/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "Images/capture-512x1024.png",
+      "sizes": "512x1024",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}
